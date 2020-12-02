@@ -3,9 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "start.js",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "node ./start.js",
+    "create": "node ./create.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
