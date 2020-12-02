@@ -49,14 +49,25 @@ function find_with_hash(arr, val) {
   return null;
 }
 
-export function part1(input) {
-  const numbers = input_to_numbers_array(input);
+/**
+ * @param {string} input
+ */
+export function parse_input(input) {
+  return input_to_numbers_array(input);
+}
+
+/**
+ * @param {ReturnType<typeof parse_input>} numbers
+ */
+export function part1(numbers) {
   const result = find_with_hash(numbers, 2020);
   return result ? result[0] * result[1] : null;
 }
 
-export function part2(input) {
-  const numbers = input_to_numbers_array(input);
+/**
+ * @param {ReturnType<typeof parse_input>} numbers
+ */
+export function part2(numbers) {
   while (numbers.length) {
     const n1 = numbers.shift();
     const result = find_with_hash(numbers, 2020 - n1);
