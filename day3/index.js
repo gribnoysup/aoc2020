@@ -12,6 +12,12 @@ export function parse_input(input) {
     });
 }
 
+/**
+ * @param {number[][]} arr 2d array representing the "trees"
+ * @param {number} x vertical move distance
+ * @param {number} y horizontal move distance
+ * @returns {number}
+ */
 function count_with_a_step(arr, x, y) {
   const line_length = arr[0].length;
   let res = 0;
@@ -30,6 +36,11 @@ export function part1(forest_map) {
   return count_with_a_step(forest_map, 1, 3);
 }
 
+/**
+ * @param {number[][]} arr 2d array representing the "trees"
+ * @param {[number, number][]} steps array of step variants that we are checking
+ * @returns {number[]}
+ */
 function one_pass_count(arr, steps) {
   const line_length = arr[0].length;
   const results = Array(steps.length).fill(0);
