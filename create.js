@@ -12,16 +12,16 @@ export function parse_input(input) {
 }
 
 /**
- * @param {ReturnType<typeof parse_input>} parsed_input
+ * @param {ReturnType<typeof parse_input>} input
  */
-export function part1(parsed_input) {
+export function part1(input) {
 
 }
 
 /**
- * @param {ReturnType<typeof parse_input>} parsed_input
+ * @param {ReturnType<typeof parse_input>} input
  */
-export function part2(parsed_input) {
+export function part2(input) {
 
 }`;
 
@@ -29,11 +29,16 @@ console.log();
 console.log("Advent of Code 2020 Solution Template Creator");
 console.log();
 
-const { day, input_data } = await inquirer.prompt([
+const { day, sample_data, input_data } = await inquirer.prompt([
   {
     type: "number",
     name: "day",
     message: "Enter day number",
+  },
+  {
+    type: "editor",
+    name: "sample_data",
+    message: "Enter sample data",
   },
   {
     type: "editor",
@@ -45,12 +50,14 @@ const { day, input_data } = await inquirer.prompt([
 const folder = `day${String(day)}`;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const solution_folder = path.resolve(__dirname, folder);
 
 try {
-  await fs.mkdir(path.resolve(__dirname, folder));
-  await fs.writeFile(path.resolve(__dirname, folder, "input.txt"), input_data);
-  await fs.writeFile(path.resolve(__dirname, folder, "index.js"), js_template);
-  
+  await fs.mkdir(solution_folder);
+  await fs.writeFile(path.join(solution_folder, "sample.txt"), sample_data);
+  await fs.writeFile(path.join(solution_folder, "input.txt"), input_data);
+  await fs.writeFile(path.join(solution_folder, "index.js"), js_template);
+
   console.log();
   console.log("All done. Enjoy!");
   console.log();

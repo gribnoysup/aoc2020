@@ -19,10 +19,10 @@ function is_password_valid_p1(min, max, letter, password) {
 }
 
 /**
- * @param {ReturnType<typeof parse_input>} parsed_input
+ * @param {ReturnType<typeof parse_input>} passwords
  */
-export function part1(parsed_input) {
-  return parsed_input.reduce((acc, { p1, p2, letter, password }) => {
+export function part1(passwords) {
+  return passwords.reduce((acc, { p1, p2, letter, password }) => {
     return acc + Number(is_password_valid_p1(p1, p2, letter, password));
   }, 0);
 }
@@ -43,10 +43,10 @@ function is_password_valid_p2(pos1, pos2, letter, password) {
 }
 
 /**
- * @param {ReturnType<typeof parse_input>} parsed_input
+ * @param {ReturnType<typeof parse_input>} passwords
  */
-export function part2(parsed_input) {
-  return parsed_input.reduce((acc, { p1, p2, letter, password }) => {
+export function part2(passwords) {
+  return passwords.reduce((acc, { p1, p2, letter, password }) => {
     return is_password_valid_p2(p1, p2, letter, password) ? acc + 1 : acc;
   }, 0);
 }
