@@ -21,7 +21,7 @@ const { solution_dir, input_type } = await inquirer.prompt([
   {
     type: "list",
     name: "solution_dir",
-    message: "Choose a day to run",
+    message: "Choose a day to run:",
     choices,
     default: choices[choices.length - 1].value,
   },
@@ -45,20 +45,39 @@ let input;
 
 try {
   solution = await import(`./${solution_dir}/index.js`);
-  parser = solution?.parse_input ?? parser;
-  input = parser(
-    await fs.readFile(`./${solution_dir}/${input_type}.txt`, "utf8")
-  );
-} catch {}
+} catch (e) {
+  if (e.code !== "ERR_MODULE_NOT_FOUND") {
+    console.error(`⚠️  Error while loading solution:`);
+    console.error();
 
-if (!input) {
+    throw e;
+  }
+}
+
+parser = solution?.parse_input ?? parser;
+
+try {
+  input = await fs.readFile(`./${solution_dir}/${input_type}.txt`, "utf8");
+} catch (e) {
   const type = input === "input" ? "input" : "sample input";
 
-  console.warn(`⚠️  No ${type} provided for the solutions`);
-  console.warn();
+  if (e.code === "ENOENT") {
+    console.warn(`⚠️  No ${type} provided for the solution.`);
+    console.warn();
+  } else {
+    console.error(`⚠️  Error while loading ${type}: `);
+    console.error();
+
+    throw e;
+  }
 
   process.exitCode = 1;
-} else {
+  process.exit();
+}
+
+try {
+  input = parser(input);
+
   const timeLabel = "Time".padStart("Part 1 Answer".length);
 
   if (solution?.part1) {
@@ -66,7 +85,7 @@ if (!input) {
     console.log("Part 1 Answer:", await solution.part1(input));
     console.timeEnd(timeLabel);
   } else {
-    console.warn("⚠️  Part 1 is not implemented");
+    console.warn("⚠️  Part 1 is not implemented.");
   }
 
   console.log();
@@ -76,8 +95,13 @@ if (!input) {
     console.log("Part 2 Answer:", await solution.part2(input));
     console.timeEnd(timeLabel);
   } else {
-    console.warn("⚠️  Part 2 is not implemented");
+    console.warn("⚠️  Part 2 is not implemented.");
   }
 
   console.log();
+} catch (e) {
+  console.error(`⚠️  Error while parsing input:`);
+  console.error();
+
+  throw e;
 }
