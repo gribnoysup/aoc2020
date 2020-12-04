@@ -16,7 +16,8 @@ const validation = {
     return !isNaN(val) && in_range(val, 2020, 2030);
   },
   hgt: (val) => {
-    let [, n, type] = /^(\d+?)(cm|in)$/.exec(val) || [];
+    let { n, type } =
+      (/^(?<n>\d+?)(?<type>cm|in)$/.exec(val) || {}).groups || {};
     n = Number(n);
     return type && !isNaN(n) && type === "cm"
       ? in_range(n, 150, 193)
