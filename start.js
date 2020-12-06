@@ -77,10 +77,21 @@ try {
 
 try {
   input = parser(input);
+} catch (e) {
+  console.error(`⚠️  Error while parsing input:`);
+  console.error();
 
+  throw e;
+}
+
+let part = 0;
+
+try {
   const timeLabel = "Time".padStart("Part 1 Answer".length);
 
   if (solution?.part1) {
+    part++;
+
     console.time(timeLabel);
     console.log("Part 1 Answer:", await solution.part1(input));
     console.timeEnd(timeLabel);
@@ -91,6 +102,8 @@ try {
   console.log();
 
   if (solution?.part2) {
+    part++;
+
     console.time(timeLabel);
     console.log("Part 2 Answer:", await solution.part2(input));
     console.timeEnd(timeLabel);
@@ -100,7 +113,11 @@ try {
 
   console.log();
 } catch (e) {
-  console.error(`⚠️  Error while parsing input:`);
+  if (part > 0) {
+    console.error(`⚠️  Error while running solution for part ${part}:`);
+  } else {
+    console.error("⚠️  Something unexpected happened:");
+  }
   console.error();
 
   throw e;
