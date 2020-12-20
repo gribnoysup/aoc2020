@@ -10,11 +10,14 @@ console.log();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const dirs = (await fs.readdir(__dirname)).filter((dirName) =>
-  /^day/.test(dirName)
+  /^day_/.test(dirName)
 );
 
 const choices = dirs.map((dir_name) => {
-  return { name: `Day ${dir_name.replace("day", "")}`, value: dir_name };
+  return {
+    name: `Day ${Number(dir_name.replace("day_", ""))}`,
+    value: dir_name,
+  };
 });
 
 const { solution_dir, input_type } = await inquirer.prompt([

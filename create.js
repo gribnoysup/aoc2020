@@ -6,7 +6,7 @@ import inquirer from "inquirer";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function get_folder_name(day) {
-  return `day${String(day)}`;
+  return `day_${String(day).padStart(2, "0")}`;
 }
 
 const js_template = `
