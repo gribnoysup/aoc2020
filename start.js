@@ -85,6 +85,7 @@ try {
 }
 
 let part = 0;
+let part_1, part_2;
 
 try {
   const timeLabel = "Time".padStart("Part 1 Answer".length);
@@ -93,7 +94,8 @@ try {
     part++;
 
     console.time(timeLabel);
-    console.log("Part 1 Answer:", await solution.part1(input));
+    part_1 = await solution.part1(input);
+    console.log("Part 1 Answer:", part_1);
     console.timeEnd(timeLabel);
   } else {
     console.warn("⚠️  Part 1 is not implemented.");
@@ -105,7 +107,8 @@ try {
     part++;
 
     console.time(timeLabel);
-    console.log("Part 2 Answer:", await solution.part2(input));
+    part_2 = await solution.part2(input, part_1);
+    console.log("Part 2 Answer:", part_2);
     console.timeEnd(timeLabel);
   } else {
     console.warn("⚠️  Part 2 is not implemented.");

@@ -26,8 +26,9 @@ export function part1(input) {
 
 /**
  * @param {ReturnType<typeof parse_input>} input
+ * @param {ReturnType<typeof part1>} first_result
  */
-export function part2(input) {
+export function part2(input, first_result) {
 
 }`;
 
